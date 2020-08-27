@@ -23,7 +23,7 @@ Result - Simple monad solution based on C++17 and policy based design
         
         if(ok_result)
         {
-            std::cout << ok_result.get() << '\n';
+            std::cout << ok_result.value() << '\n';
         }
     
         return 0;
