@@ -18,18 +18,18 @@ template<typename Result>
 struct Monad : detail::polyh::VirtualBase<Result, Monad>
 {
     template<typename Function>
-    inline constexpr auto value_map(Function && function)
+    [[nodiscard]] inline constexpr auto value_map(Function && function)
     {
         return CRTP_UNDERLYING.operator bool() ? Result{to_value(function(CRTP_UNDERLYING.value()))} : Result{CRTP_UNDERLYING};
     }
 
     template<typename Function>
-    inline constexpr auto error_map(Function && function)
+    [[nodiscard]] inline constexpr auto error_map(Function && function)
     {
         return CRTP_UNDERLYING.operator bool() ? Result{CRTP_UNDERLYING} : Result{to_error(function(CRTP_UNDERLYING.error()))};
     }
 
-    inline constexpr auto join() const noexcept
+    [[nodiscard]] inline constexpr auto join() const noexcept
     {
         return CRTP_UNDERLYING.operator bool() ? CRTP_UNDERLYING.value() : CRTP_UNDERLYING.error();
     }

@@ -45,38 +45,38 @@ public:
     {
     }
 
-    explicit constexpr Result(ValueType value, tag::Value = {})
+    constexpr Result(ValueType value, tag::Value const = {})
         : data_{to_value(std::forward<ValueType>(value))}
     {
     }
 
-    explicit constexpr Result(ErrorType error, tag::Error = {})
+    constexpr Result(ErrorType error, tag::Error const = {})
         : data_{to_error(std::forward<ErrorType>(error))}
     {
     }
 
-    constexpr std::remove_reference_t<ValueType> const & value() const
+    [[nodiscard]] inline constexpr std::remove_reference_t<ValueType> const & value() const
     {
         return std::get<Value>(data_).get();
     }
 
-    constexpr std::remove_reference_t<ErrorType> const & error() const
+    [[nodiscard]] inline constexpr std::remove_reference_t<ErrorType> const & error() const
     {
         return std::get<Error>(data_).get();
     }
 
-    inline constexpr operator bool() const noexcept
+    [[nodiscard]] inline constexpr operator bool() const noexcept
     {
         return std::holds_alternative<Value>(data_);
     }
 
 protected:
-    ValueType & modify_value()
+    inline ValueType & modify_value()
     {
         return std::get<Value>(data_).get();
     }
 
-    ErrorType & modify_error()
+    inline ErrorType & modify_error()
     {
         return std::get<Error>(data_).get();
     }
