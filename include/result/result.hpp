@@ -55,17 +55,17 @@ public:
     {
     }
 
-    [[nodiscard]] inline constexpr std::remove_reference_t<ValueType> const & value() const
+    [[nodiscard]] constexpr std::remove_reference_t<ValueType> const & value() const
     {
         return std::get<Value>(data_).get();
     }
 
-    [[nodiscard]] inline constexpr std::remove_reference_t<ErrorType> const & error() const
+    [[nodiscard]] constexpr std::remove_reference_t<ErrorType> const & error() const
     {
         return std::get<Error>(data_).get();
     }
 
-    [[nodiscard]] inline constexpr operator bool() const noexcept
+    [[nodiscard]] constexpr operator bool() const noexcept
     {
         return std::holds_alternative<Value>(data_);
     }

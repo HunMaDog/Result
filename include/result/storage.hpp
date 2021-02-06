@@ -39,12 +39,12 @@ public:
     {
     }
 
-    [[nodiscard]] inline constexpr StoredType & get()
+    [[nodiscard]] constexpr StoredType & get()
     {
         return value_;
     }
 
-    [[nodiscard]] inline constexpr std::remove_reference_t<StoredType> const & get() const
+    [[nodiscard]] constexpr std::remove_reference_t<StoredType> const & get() const
     {
         return value_;
     }
@@ -66,28 +66,28 @@ template<typename Type>
 using ErrorStorage = Storage<Type, tag::Error>;
 
 template<typename Type>
-[[nodiscard]] inline constexpr ValueStorage<Type>
+[[nodiscard]] constexpr ValueStorage<Type>
 to_value(Type const & value)
 {
     return ValueStorage<Type>{value};
 }
 
 template<typename Type, typename = std::enable_if_t<!std::is_reference_v<Type>>>
-[[nodiscard]] inline constexpr ValueStorage<Type>
+[[nodiscard]] constexpr ValueStorage<Type>
 to_value(Type && value)
 {
     return ValueStorage<Type>{std::forward<Type>(value)};
 }
 
 template<typename Type>
-[[nodiscard]] inline constexpr ErrorStorage<Type>
+[[nodiscard]] constexpr ErrorStorage<Type>
 to_error(Type const & value)
 {
     return ErrorStorage<Type>{value};
 }
 
 template<typename Type, typename = std::enable_if_t<!std::is_reference_v<Type>>>
-[[nodiscard]] inline constexpr ErrorStorage<Type>
+[[nodiscard]] constexpr ErrorStorage<Type>
 to_error(Type && value)
 {
     return ErrorStorage<Type>{std::forward<Type>(value)};
